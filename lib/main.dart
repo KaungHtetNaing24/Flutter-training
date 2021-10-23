@@ -40,6 +40,19 @@ class _FormsState extends State<Forms> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+                Padding(
+                  padding: const EdgeInsets.all(28.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Column(
+                        children: [
+                          Image.asset("assets/profile.png",width: 200,),
+                        ],
+                      )
+                    ],
+                  ),
+                ),
               TextFormField(
                 decoration: const InputDecoration(
                   hintText: "Enter your name",
@@ -57,7 +70,7 @@ class _FormsState extends State<Forms> {
                 decoration: const InputDecoration(
                   hintText: "Enter your Password",
                   labelText: "Password",
-                  icon: Icon(Icons.person),
+                  icon: Icon(Icons.lock),
                 ),
                 validator: (value) {
                 if (value == null || value.isEmpty) {
@@ -79,9 +92,9 @@ class _FormsState extends State<Forms> {
                       );
                     }
                   },
-                  child: const Text('Submit'),
+                  child: const Text('Login'),
                 ),
-              )
+              ),
             ],
         ),
       )

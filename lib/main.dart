@@ -13,92 +13,175 @@ class  MyApp extends StatelessWidget {
       title: 'App 10',
       home: Scaffold(
         appBar: AppBar(
-          title: const Text("Form")
+          title: const Text("Form"),
         ),
-        body: const Forms(),
+        drawer: Drawer(
+          child: ListView(
+            padding: const EdgeInsets.all(8.0),
+            children: [
+              UserAccountsDrawerHeader(
+                accountName: const Text("Kaung Htet"), 
+                accountEmail: const Text("khn@gmail.com"),
+                currentAccountPicture: Container(
+                 height: 60,
+                 width: 60,
+                 decoration: BoxDecoration(
+                   color: Colors.white,
+                   borderRadius: BorderRadius.circular(100),
+                   image: const DecorationImage(image: AssetImage("assets/profile.png"),fit: BoxFit.cover)
+                  ),
+                ),
+                ),
+                const ListTile(
+                  leading: Icon(Icons.home) ,
+                  title: Text("Home"),
+                ),
+                const ListTile(
+                  leading: Icon(Icons.settings) ,
+                  title: Text("Setting"),
+                ),
+                const ListTile(
+                  leading: Icon(Icons.local_grocery_store) ,
+                  title: Text("Store"),
+                )
+            ],
+          ),
+        ),
+        // body: const Forms(),
+        body: Padding(
+          padding: const EdgeInsets.all(28.0),
+          child: Center(
+            child: Container(
+              height: 200,
+              width: 300,
+              child: Card(
+                color: Colors.yellow,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30),
+                ),
+                elevation: 10,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Padding(
+                      padding: EdgeInsets.all(18.0),
+                      child: ListTile(
+                        leading: Icon(Icons.person,size: 40,color: Colors.blue,),
+                        title: Text("Kaung Htet Naing",style: TextStyle(fontSize: 20,color: Colors.black),),
+                        subtitle: Text("COO",style: TextStyle(fontWeight: FontWeight.w700,fontSize: 16),),
+                      ),
+                    ),
+                    ButtonBar(
+                      children: [
+                          RaisedButton(
+                              child: const Text("Contact"),
+                              color: Colors.lightBlueAccent,
+                              onPressed: (){},
+                              shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30),
+                              ),
+                              textColor: Colors.white,
+                              splashColor: Colors.blue,
+                          ),
+                          RaisedButton(
+                              child: const Text("Location"),
+                              color: Colors.lightBlueAccent,
+                              onPressed: (){},
+                              textColor: Colors.white,
+                              splashColor: Colors.blue,
+                          ),
+                      ],
+                    )
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
       ),
     );
   }
 }
 
-class Forms extends StatefulWidget {
-  const Forms({ Key? key }) : super(key: key);
 
-  @override
-  _FormsState createState() => _FormsState();
-}
+// class Forms extends StatefulWidget {
+//   const Forms({ Key? key }) : super(key: key);
 
-class _FormsState extends State<Forms> {
-  final keys = GlobalKey<FormState>();
+//   @override
+//   _FormsState createState() => _FormsState();
+// }
 
-  @override
-  Widget build(BuildContext context) {
+// class _FormsState extends State<Forms> {
+//   final keys = GlobalKey<FormState>();
 
-    return Form(
-      key: keys,
-      child: Center(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-                Padding(
-                  padding: const EdgeInsets.all(28.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Column(
-                        children: [
-                          Image.asset("assets/profile.png",width: 200,),
-                        ],
-                      )
-                    ],
-                  ),
-                ),
-              TextFormField(
-                decoration: const InputDecoration(
-                  hintText: "Enter your name",
-                  labelText: "Name",
-                  icon: Icon(Icons.person),
-                ),
-                validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter some text';
-                }
-                return null;
-              },
-              ),
-              TextFormField(
-                decoration: const InputDecoration(
-                  hintText: "Enter your Password",
-                  labelText: "Password",
-                  icon: Icon(Icons.lock),
-                ),
-                validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter some text';
-                }
-                return null;
-              },
-              ),
-              Container(
-                margin: const EdgeInsets.only(top: 20),
-                child: ElevatedButton(
-                  onPressed: () {
-                    // Validate returns true if the form is valid, or false otherwise.
-                    if (keys.currentState!.validate()) {
-                      // If the form is valid, display a snackbar. In the real world,
-                      // you'd often call a server or save the information in a database.
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('Processing Data')),
-                      );
-                    }
-                  },
-                  child: const Text('Login'),
-                ),
-              ),
-            ],
-        ),
-      )
-      );
+//   @override
+//   Widget build(BuildContext context) {
 
-  }
-}
+//     return Form(
+//       key: keys,
+//       child: Center(
+//         child: Column(
+//           crossAxisAlignment: CrossAxisAlignment.center,
+//             children: [
+//                 Padding(
+//                   padding: const EdgeInsets.all(28.0),
+//                   child: Row(
+//                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+//                     children: [
+//                       Column(
+//                         children: [
+//                           Image.asset("assets/profile.png",width: 200,),
+//                         ],
+//                       )
+//                     ],
+//                   ),
+//                 ),
+//               TextFormField(
+//                 decoration: const InputDecoration(
+//                   hintText: "Enter your name",
+//                   labelText: "Name",
+//                   icon: Icon(Icons.person),
+//                 ),
+//                 validator: (value) {
+//                 if (value == null || value.isEmpty) {
+//                   return 'Please enter some text';
+//                 }
+//                 return null;
+//               },
+//               ),
+//               TextFormField(
+//                 decoration: const InputDecoration(
+//                   hintText: "Enter your Password",
+//                   labelText: "Password",
+//                   icon: Icon(Icons.lock),
+//                 ),
+//                 validator: (value) {
+//                 if (value == null || value.isEmpty) {
+//                   return 'Please enter some text';
+//                 }
+//                 return null;
+//               },
+//               ),
+//               Container(
+//                 margin: const EdgeInsets.only(top: 20),
+//                 child: ElevatedButton(
+//                   onPressed: () {
+//                     // Validate returns true if the form is valid, or false otherwise.
+//                     if (keys.currentState!.validate()) {
+//                       // If the form is valid, display a snackbar. In the real world,
+//                       // you'd often call a server or save the information in a database.
+//                       ScaffoldMessenger.of(context).showSnackBar(
+//                         const SnackBar(content: Text('Processing Data')),
+//                       );
+//                     }
+//                   },
+//                   child: const Text('Login'),
+//                 ),
+//               ),
+//             ],
+//         ),
+//       )
+//       );
+
+//   }
+// }

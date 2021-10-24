@@ -4,14 +4,25 @@ void main() {
   runApp(const MyApp());
 }
 
-class  MyApp extends StatelessWidget {
-  const MyApp ({ Key? key }) : super(key: key);
+class MyApp extends StatelessWidget {
+  const MyApp({ Key? key }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'App 10',
-      home: Scaffold(
+    return const MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Alert dialog',
+        home: AlertWidget(),
+    );
+  }
+}
+
+class  AlertWidget extends StatelessWidget {
+  const AlertWidget ({ Key? key }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
         appBar: AppBar(
           title: const Text("Form"),
         ),
@@ -47,60 +58,129 @@ class  MyApp extends StatelessWidget {
             ],
           ),
         ),
+        
         // body: const Forms(),
         body: Padding(
           padding: const EdgeInsets.all(28.0),
-          child: Center(
-            child: Container(
-              height: 200,
-              width: 300,
-              child: Card(
-                color: Colors.yellow,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30),
-                ),
-                elevation: 10,
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    const Padding(
-                      padding: EdgeInsets.all(18.0),
-                      child: ListTile(
-                        leading: Icon(Icons.person,size: 40,color: Colors.blue,),
-                        title: Text("Kaung Htet Naing",style: TextStyle(fontSize: 20,color: Colors.black),),
-                        subtitle: Text("COO",style: TextStyle(fontWeight: FontWeight.w700,fontSize: 16),),
+            child: Center(
+              child: Container(
+                height: 200,
+                width: 300,
+                child: Card(
+                  color: Colors.yellow,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  elevation: 10,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const Padding(
+                        padding: EdgeInsets.all(18.0),
+                        child: ListTile(
+                          leading: Icon(Icons.person,size: 40,color: Colors.blue,),
+                          title: Text("Kaung Htet Naing",style: TextStyle(fontSize: 20,color: Colors.black),),
+                          subtitle: Text("COO",style: TextStyle(fontWeight: FontWeight.w700,fontSize: 16),),
+                        ),
                       ),
-                    ),
-                    ButtonBar(
-                      children: [
-                          RaisedButton(
-                              child: const Text("Contact"),
-                              color: Colors.lightBlueAccent,
-                              onPressed: (){},
-                              shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(30),
-                              ),
-                              textColor: Colors.white,
-                              splashColor: Colors.blue,
-                          ),
-                          RaisedButton(
-                              child: const Text("Location"),
-                              color: Colors.lightBlueAccent,
-                              onPressed: (){},
-                              textColor: Colors.white,
-                              splashColor: Colors.blue,
-                          ),
-                      ],
-                    )
-                  ],
+                      ButtonBar(
+                        children: [
+                            RaisedButton(
+                                child: const Text("Simple alert"),
+                                color: Colors.lightBlueAccent,
+                                shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(30),
+                                ),
+                                textColor: Colors.white,
+                                splashColor: Colors.blue,
+                                onPressed: (){
+                                  alertdialogwidget(context);
+                                },
+                            ),
+                            RaisedButton(
+                                child: const Text("Selection alert"),
+                                color: Colors.lightBlueAccent,
+                                onPressed: () async{
+                                   final selectopt option = await selectionalertdialogwidget(context);
+                                   // ignore: avoid_print
+                                   print(option);
+                                },
+                                textColor: Colors.white,
+                                splashColor: Colors.blue,
+                                shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20),
+                                ),
+                            ),
+                        ],
+                      )
+                    ],
+                  ),
                 ),
               ),
             ),
-          ),
+          
         ),
-      ),
     );
   }
+}
+
+
+alertdialogwidget(BuildContext context){
+
+  showDialog(context: context, builder: (BuildContext context){
+    return AlertDialog(
+      title: const Text("Basic"),
+      content: const Text("This is for notification purpose"),
+      actions: [
+        ElevatedButton(
+          child: const Text("OK"),
+          onPressed: (){
+            Navigator.of(context).pop();
+          }
+          )
+      ],
+    );
+  });
+}
+
+
+enum selectopt {C,java,python,php}
+selectionalertdialogwidget(BuildContext context) async{
+
+  return showDialog<selectopt>(
+    context: context, 
+    barrierDismissible: true,
+    builder: (BuildContext context){
+      return SimpleDialog(
+        title: const Text("Choose one"),
+        children: [
+          SimpleDialogOption(
+            onPressed: (){
+              Navigator.pop(context,selectopt.C);
+              },
+              child: const Text("C"),
+          ),
+          SimpleDialogOption(
+            onPressed: (){
+              Navigator.pop(context,selectopt.java);
+              },
+              child: const Text("Java"),
+          ),
+          SimpleDialogOption(
+            onPressed: (){
+              Navigator.pop(context,selectopt.python);
+              },
+              child: const Text("Python"),
+          ),
+          SimpleDialogOption(
+            onPressed: (){
+              Navigator.pop(context,selectopt.php);
+              },
+              child: const Text("PHP"),
+          ),
+        ],
+      );
+    });
 }
 
 

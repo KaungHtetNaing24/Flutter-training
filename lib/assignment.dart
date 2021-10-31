@@ -9,34 +9,36 @@ class Caculator extends StatefulWidget {
 }
 
 class _CaculatorState extends State<Caculator> {
-  String output = "0";
+  String output = "Start with 0";
   String _output = "0";
+  String output1 = "0";
 
   operation(String btntext){
       _output = btntext;
       setState(() {
-        output = int.parse(_output).toString();
+        output1 = int.parse(_output).toString();
+        output = "This is ' $output1 '";
       });
   }
 
   Widget button(String btntext){
     return Expanded(
-      child: RawMaterialButton(
-      shape: Border.all(color: Colors.blueGrey),
-      splashColor: Colors.blueGrey,
-      fillColor: Colors.grey,
-      child: Text(
-        btntext,
-        style: const TextStyle(
-          fontSize: 20,
-          color: Colors.white,
-          fontWeight: FontWeight.w600
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: ElevatedButton(
+        child: Text(
+          btntext,
+          style: const TextStyle(
+            fontSize: 20,
+            color: Colors.white,
+            fontWeight: FontWeight.w600
+          ),
+          ),
+        // padding: const EdgeInsets.all(30.0),
+        onPressed: (){
+          operation(btntext);
+        }
         ),
-        ),
-      padding: const EdgeInsets.all(30.0),
-      onPressed: (){
-        operation(btntext);
-      }
       )
      );
   }
@@ -49,25 +51,12 @@ class _CaculatorState extends State<Caculator> {
       home: Scaffold(
         appBar: AppBar(
           title: const Text("Assignment"),
-          backgroundColor: Colors.blueGrey,
+          
         ),
         body: Container(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Expanded(
-                child: Container(
-                  alignment: Alignment.center,
-                  padding: const EdgeInsets.all(20),
-                  child: Text(
-                    output,
-                    style:const TextStyle(
-                      fontSize: 60,
-                      fontWeight: FontWeight.w600
-                    )
-                    ),
-                )
-                ),
               Row(
                 children: [
                   button('1'),
@@ -101,6 +90,19 @@ class _CaculatorState extends State<Caculator> {
               const SizedBox(
                 height: 5,
               ),
+              Expanded(
+                child: Container(
+                  alignment: Alignment.center,
+                  padding: const EdgeInsets.all(20),
+                  child: Text(
+                    output,
+                    style:const TextStyle(
+                      fontSize: 30,
+                      fontWeight: FontWeight.w600
+                    )
+                    ),
+                )
+                ),
             ],
           ),
         ),

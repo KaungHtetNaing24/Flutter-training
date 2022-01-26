@@ -1,9 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app_day10/assignment.dart';
+// import 'package:flutter_app_day10/assignment.dart';
+// import 'package:flutter_app_day10/assignment2.dart';
+// import 'package:flutter_app_day10/datepicker.dart';
+import 'package:flutter_app_day10/student_data.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-void main() {
+void main() async{
   // runApp(const MyApp());
-  runApp(const Caculator());
+  // runApp(const Caculator());
+  // runApp(const Textfield());
+  // runApp(const DatePicker());
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(MaterialApp(
+    theme: ThemeData(
+      brightness: Brightness.light,
+      primaryColor: Colors.blue, colorScheme: ColorScheme.fromSwatch().copyWith(secondary: Colors.cyan)
+    ),
+    home: const StudentData(),
+  ));
 }
 
 class MyApp extends StatelessWidget {

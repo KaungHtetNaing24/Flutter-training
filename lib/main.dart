@@ -1,35 +1,83 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app_day10/auth_page.dart';
+// import 'package:flutter_app_day10/datepicker.dart';
+import 'package:flutter_app_day10/home_page.dart';
+import 'package:flutter_app_day10/login_widget.dart';
 // import 'package:flutter_app_day10/assignment.dart';
 // import 'package:flutter_app_day10/assignment2.dart';
 // import 'package:flutter_app_day10/datepicker.dart';
-import 'package:flutter_app_day10/student_data.dart';
+// import 'package:flutter_app_day10/student_data.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 void main() async{
-  // runApp(const MyApp());
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(const MyApp());
   // runApp(const Caculator());
   // runApp(const Textfield());
   // runApp(const DatePicker());
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
-  runApp(MaterialApp(
-    theme: ThemeData(
-      brightness: Brightness.light,
-      primaryColor: Colors.blue, colorScheme: ColorScheme.fromSwatch().copyWith(secondary: Colors.cyan)
-    ),
-    home: const StudentData(),
-  ));
+  // WidgetsFlutterBinding.ensureInitialized();
+  // await Firebase.initializeApp();
+  // runApp(MaterialApp(
+  //   theme: ThemeData(
+  //     brightness: Brightness.light,
+  //     primaryColor: Colors.blue, colorScheme: ColorScheme.fromSwatch().copyWith(secondary: Colors.cyan)
+  //   ),
+  //   // home: const StudentData(),
+  //   // home: const MainPage(),
+  // ));
 }
+
+final navigatorKey = GlobalKey<NavigatorState>();
+final messengerKey = GlobalKey<ScaffoldMessengerState>();
+
+void showSnackBar(String? text){
+    if(text == null) return;
+    
+    final snackBar = SnackBar(content: Text(text),backgroundColor: Colors.red,);
+    
+    messengerKey.currentState!
+      ..removeCurrentSnackBar()
+      ..showSnackBar(snackBar);
+  }
 
 class MyApp extends StatelessWidget {
   const MyApp({ Key? key }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
+      scaffoldMessengerKey: messengerKey,
+      navigatorKey: navigatorKey,
       debugShowCheckedModeBanner: false,
-      title: 'Alert dialog',
-        home: AlertWidget(),
+      title: 'title',
+        home: const MainPage(),
+    );
+  }
+}
+
+class MainPage extends StatelessWidget {
+  const MainPage({ Key? key }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.blueGrey.shade900,
+      body: StreamBuilder<User?>(
+        stream: FirebaseAuth.instance.authStateChanges(),
+        builder: (context, snapshot) {
+          if(snapshot.connectionState == ConnectionState.waiting){
+            return const Center(child: CircularProgressIndicator(),);
+          }else if (snapshot.hasError){
+            return const Center(child: Text('Something went wrong'));
+          }else if(snapshot.hasData){
+            return const HomePage();
+          }else{
+            return const AuthPage();
+          }
+        },
+      ),
     );
   }
 }

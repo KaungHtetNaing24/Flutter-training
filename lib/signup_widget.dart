@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
@@ -120,7 +121,16 @@ class _SignUpWidgetState extends State<SignUpWidget> {
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
       email: emailController.text.trim(), 
       password: passwordController.text.trim()
-    );
+    ).then((value) async{
+      User? user = FirebaseAuth.instance.currentUser;
+
+      await FirebaseFirestore.instance.collection("users").doc(user!.uid).set({
+        'uid':user.uid,
+        'email':emailController.text.trim(),
+        'password':passwordController.text.trim(),
+        'role':'user'
+      });
+    });
     } on FirebaseAuthException catch (e) {
       showSnackBar(e.message);
     }

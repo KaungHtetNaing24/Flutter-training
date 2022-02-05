@@ -67,6 +67,21 @@ class _StudentDataState extends State<StudentData> {
       documentReference.delete().whenComplete(() => print("$studentName deleted"));
   }
 
+    void deleteNestedSubcollections(String id) {
+    Future<QuerySnapshot> projects =
+        FirebaseFirestore.instance.collection("MyStudents").doc(id).collection("projects").get();
+    projects.then((value) {
+      value.docs.forEach((element) {
+        FirebaseFirestore.instance.collection("MyStudents")
+            .doc(id)
+            .collection("projects")
+            .doc(element.id)
+            .delete()
+            .then((value) => print("success"));
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -186,6 +201,7 @@ class _StudentDataState extends State<StudentData> {
               ),
               ElevatedButton(
                 onPressed: (){
+                  deleteNestedSubcollections(studentName);
                   deleteData();
                 }, 
                 child: const Text("Delete"),

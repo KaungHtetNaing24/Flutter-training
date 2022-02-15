@@ -53,58 +53,56 @@ class _CaculatorState extends State<Caculator> {
           title: const Text("Assignment"),
           
         ),
-        body: Container(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Row(
-                children: [
-                  button('1'),
-                  button('2'),
-                  button('3'),
-                  
-                ],
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Row(
+              children: [
+                button('1'),
+                button('2'),
+                button('3'),
+                
+              ],
+            ),
+            const SizedBox(
+              height: 5,
+            ),
+            Row(
+              children: [
+                button('4'),
+                button('5'),
+                button('6'),
+                
+              ],
+            ),
+            const SizedBox(
+              height: 5,
+            ),
+            Row(
+              children: [
+                button('7'),
+                button('8'),
+                button('9'),
+                
+              ],
+            ),
+            const SizedBox(
+              height: 5,
+            ),
+            Expanded(
+              child: Container(
+                alignment: Alignment.center,
+                padding: const EdgeInsets.all(20),
+                child: Text(
+                  output,
+                  style:const TextStyle(
+                    fontSize: 30,
+                    fontWeight: FontWeight.w600
+                  )
+                  ),
+              )
               ),
-              const SizedBox(
-                height: 5,
-              ),
-              Row(
-                children: [
-                  button('4'),
-                  button('5'),
-                  button('6'),
-                  
-                ],
-              ),
-              const SizedBox(
-                height: 5,
-              ),
-              Row(
-                children: [
-                  button('7'),
-                  button('8'),
-                  button('9'),
-                  
-                ],
-              ),
-              const SizedBox(
-                height: 5,
-              ),
-              Expanded(
-                child: Container(
-                  alignment: Alignment.center,
-                  padding: const EdgeInsets.all(20),
-                  child: Text(
-                    output,
-                    style:const TextStyle(
-                      fontSize: 30,
-                      fontWeight: FontWeight.w600
-                    )
-                    ),
-                )
-                ),
-            ],
-          ),
+          ],
         ),
       ),
     );

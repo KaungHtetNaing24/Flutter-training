@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app_day10/profile.dart';
 import 'package:flutter_app_day10/student_data.dart';
 
 class HomePage extends StatelessWidget {
@@ -19,6 +20,13 @@ class HomePage extends StatelessWidget {
             UserAccountsDrawerHeader(
               accountName: const Text("Username"), 
               accountEmail: Text(user.email!)
+            ),
+            ListTile(
+              leading: const Icon(Icons.person),
+              title:const Text('Profile'),
+              onTap: (){
+                 Navigator.of(context).push(MaterialPageRoute(builder: (context)=>const Profile()));
+              },
             ),
             ListTile(
               leading: const Icon(Icons.person_add),
@@ -74,6 +82,7 @@ class HomePage extends StatelessWidget {
 
 // ignore: must_be_immutable
 class Infomation extends StatelessWidget {
+  // ignore: prefer_typing_uninitialized_variables
   var value;
   Infomation({ Key? key,this.value }) : super(key: key);
 
